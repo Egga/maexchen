@@ -1,16 +1,17 @@
 package simplebot;
 
-import java.io.IOException;
-
 import udphelper.MessageListener;
 import udphelper.MessageSender;
 import udphelper.UdpCommunicator;
+
+import java.io.IOException;
 
 public class Main {
 
 	private enum BotTypes {
 		simple,
-		random
+		random,
+        clean
 	}
 	
 	public static void main(String[] args) throws IOException {
@@ -31,7 +32,9 @@ public class Main {
 	private static MessageListener createBot(BotTypes botType, String clientName, MessageSender messageSender) {
 		if (botType == BotTypes.random) {
 			return new RandomBot(clientName, messageSender);
-		}
+		} else if (botType == BotTypes.clean) {
+            return new CleanBot(clientName, messageSender);
+        }
 		return new SimpleBot(clientName, messageSender);
 	}
 
